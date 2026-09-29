@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    // Compilation target
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": ["ES2020"],
+    "moduleResolution": "bundler",
+
+    // Type declarations
+    "types": ["node"],
+    "declaration": true,
+    "resolveJsonModule": true,
+
+    // Strictness
+    "strict": true,
+    "isolatedModules": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Interop
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+
+    // Output
+    "outDir": "./dist"
+  },
+  "include": ["src/**/*", "tests/**/*", "e2e/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
