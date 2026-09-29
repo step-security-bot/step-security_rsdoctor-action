@@ -1,5 +1,43 @@
 import { define } from 'rstack';
 
+const minifyOptions = {
+  css: false,
+  js: true,
+  jsOptions: {
+    extractComments: false,
+    test: /\.[cm]?jsx?(\?.*)?$/,
+    minimizerOptions: {
+      compress: {
+        defaults: true,
+        dead_code: true,
+        passes: 2,
+        toplevel: true,
+        unused: true,
+      },
+      format: {
+        comments: false as const,
+        preserve_annotations: true,
+      },
+      mangle: true,
+      minify: true,
+    },
+  },
+};
+
+const splitChunksConfig = {
+  chunks: 'async' as const,
+  cacheGroups: {
+    // Split the AI SDK into its own chunk to keep the main bundle lean.
+    aiVendor: {
+      test: /[\\/]node_modules[\\/](?:\.pnpm[\\/])?(?:@ai-sdk[+\\/]|ai@|ai[\\/])/,
+      name: 'ai-vendor',
+      chunks: 'async' as const,
+      enforce: true,
+      priority: 20,
+    },
+  },
+};
+
 define.lib({
   lib: [
     {
@@ -8,56 +46,18 @@ define.lib({
       format: 'cjs',
       output: {
         cleanDistPath: true,
+        // @rsdoctor/client assets are copied separately via build-helpers/sync-client-assets.mjs
         externals: ['@rsdoctor/client'],
         legalComments: 'none',
-        minify: {
-          css: false,
-          js: true,
-          jsOptions: {
-            extractComments: false,
-            test: /\.[cm]?jsx?(\?.*)?$/,
-            minimizerOptions: {
-              compress: {
-                defaults: true,
-                dead_code: true,
-                passes: 2,
-                toplevel: true,
-                unused: true,
-              },
-              format: {
-                comments: false,
-                preserve_annotations: true,
-              },
-              mangle: true,
-              minify: true,
-            },
-          },
-        },
+        minify: minifyOptions,
       },
       tools: {
         rspack: {
           resolve: {
-            // These optional ws peer deps are not used in Node Actions runners.
-            alias: {
-              bufferutil: false,
-              'utf-8-validate': false,
-            },
+            // Optional ws peer deps unused on Node Actions runners — stub them out.
+            alias: { bufferutil: false, 'utf-8-validate': false },
           },
-          optimization: {
-            splitChunks: {
-              chunks: 'async',
-              cacheGroups: {
-                aiVendor: {
-                  // Split the AI SDK into its own chunk to keep the main bundle small.
-                  test: /[\\/]node_modules[\\/](?:\.pnpm[\\/])?(?:@ai-sdk[+\\/]|ai@|ai[\\/])/,
-                  name: 'ai-vendor',
-                  chunks: 'async',
-                  enforce: true,
-                  priority: 20,
-                },
-              },
-            },
-          },
+          optimization: { splitChunks: splitChunksConfig },
         },
       },
     },
@@ -72,12 +72,7 @@ define.test({
   coverage: {
     include: ['src/**/*.ts'],
     exclude: ['src/**/*.d.ts', 'tests/**'],
-    thresholds: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
+    thresholds: { branches: 80, functions: 80, lines: 80, statements: 80 },
   },
 });
 
