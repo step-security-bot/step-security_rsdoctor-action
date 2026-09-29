@@ -1,0 +1,31 @@
+name: 'Rsdoctor Bundle Analysis'
+description: 'Report Rsdoctor bundle metrics on pull requests and workflow summaries, with optional AI-assisted analysis.'
+inputs:
+  github_token:
+    description: 'GitHub token for posting PR comments and accessing repository data.'
+    required: false
+    default: ${{ github.token }}
+  file_path:
+    description: 'Glob pattern or path to the Rsdoctor JSON data file emitted by the build.'
+    required: true
+  target_branch:
+    description: 'Branch to compare against for baseline metrics. Defaults to the repository default branch.'
+    required: false
+  dispatch_target_branch:
+    description: 'Override the comparison branch when triggered by workflow_dispatch.'
+    required: false
+    default: ''
+    type: string
+  enable_ai_analysis:
+    description: 'Set to false to disable AI-assisted bundle degradation analysis.'
+    required: false
+    default: 'true'
+  ai_model:
+    description: 'LLM model for degradation analysis. Provider is auto-detected from the model name prefix. Requires AI_TOKEN env var.'
+    required: false
+    default: 'claude-3-5-haiku-latest'
+    type: string
+
+runs:
+  using: 'node24'
+  main: 'dist/index.js'
