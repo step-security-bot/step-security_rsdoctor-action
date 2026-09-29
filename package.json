@@ -17,7 +17,7 @@
     "type": "git",
     "url": "https://github.com/step-security/rsdoctor-action.git"
   },
-  "license": "Apache-2.0",
+  "license": "MIT",
   "author": "StepSecurity",
   "main": "./dist/index.js",
   "files": [
