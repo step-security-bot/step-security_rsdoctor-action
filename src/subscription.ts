@@ -1,3 +1,5 @@
+import * as fs from 'fs';
+import * as core from '@actions/core';
 import axios, { isAxiosError } from 'axios';
 
 export async function validateSubscription() {
@@ -9,7 +11,7 @@ export async function validateSubscription() {
     repoPrivate = eventData?.repository?.private;
   }
 
-  const upstream = '<original-owner>/<repo-name>';
+  const upstream = 'web-infra-dev/rsdoctor-action';
   const action = process.env.GITHUB_ACTION_REPOSITORY;
   const docsUrl =
     'https://docs.stepsecurity.io/actions/stepsecurity-maintained-actions';

@@ -28,6 +28,7 @@
   "scripts": {
     "build": "rs lib && node build-helpers/sync-client-assets.mjs",
     "check": "rs check",
+    "typecheck": "tsc --noEmit",
     "format": "rs fmt",
     "lint": "rs lint",
     "lint:fix": "rs lint --fix",
@@ -57,6 +58,7 @@
     "mock-fs": "^5.2.0",
     "nock": "^13.5.4",
     "rstack": "^0.7.2",
+    "typescript": "^7.0.2",
     "yauzl": "^3.2.0"
   },
   "publishConfig": {

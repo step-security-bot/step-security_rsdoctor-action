@@ -12,11 +12,7 @@
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "baseUrl": ".",
-    "outDir": "./dist",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "outDir": "./dist"
   },
   "include": ["src/**/*", "tests/**/*", "e2e/**/*"],
   "exclude": ["node_modules", "dist"]
