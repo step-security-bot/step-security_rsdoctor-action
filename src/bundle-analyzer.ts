@@ -664,7 +664,10 @@ export function buildPRComment(opts: PRCommentOptions): string {
       );
 
       if (r.diffHtmlArtifactId) {
-        const link = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}/artifacts/${r.diffHtmlArtifactId}`;
+        const serverUrl = process.env.GITHUB_SERVER_URL || 'https://github.com';
+        const repository = process.env.GITHUB_REPOSITORY || '';
+        const runId = process.env.GITHUB_RUN_ID || '';
+        const link = `${serverUrl}/${repository}/actions/runs/${runId}/artifacts/${r.diffHtmlArtifactId}`;
         body += `\n📦 **Download Diff Report**: [${r.projectName} Bundle Diff](${link})\n\n`;
       }
     }

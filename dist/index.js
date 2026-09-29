@@ -76,8 +76,8 @@ Analyzing project: ${l} (${p})`);let d={projectName:l,filePath:p,current:null,ba
 | 🌐 HTML | ${_(i.htmlSize)} | ${a?_(a.htmlSize):"-"} | ${a?U(i.htmlSize,a.htmlSize).label:"-"} |
 | 📁 Other Assets | ${_(i.otherSize)} | ${a?_(a.otherSize):"-"} | ${a?U(i.otherSize,a.otherSize).label:"-"} |
 
-`}(e.projectName,e.filePath,e.current,e.baseline||void 0,e.baselineCommit,e.baselinePRs),e.diffHtmlArtifactId){let t=`${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}/artifacts/${e.diffHtmlArtifactId}`;i+=`
-📦 **Download Diff Report**: [${e.projectName} Bundle Diff](${t})
+`}(e.projectName,e.filePath,e.current,e.baseline||void 0,e.baselineCommit,e.baselinePRs),e.diffHtmlArtifactId){let t=process.env.GITHUB_SERVER_URL||"https://github.com",a=process.env.GITHUB_REPOSITORY||"",s=process.env.GITHUB_RUN_ID||"",o=`${t}/${a}/actions/runs/${s}/artifacts/${e.diffHtmlArtifactId}`;i+=`
+📦 **Download Diff Report**: [${e.projectName} Bundle Diff](${o})
 
 `}o.length>1&&(i+="</details>\n\n")}let r=t.filter(e=>e.intelligence);if(r.length>0){for(let e of(i+="<details>\n<summary><b>\uD83E\uDD16 AI Degradation Analysis</b> (Click to expand)</summary>\n\n",r))e.intelligence&&(r.length>1&&(i+=`#### 📁 ${e.projectName}
 
