@@ -28,14 +28,14 @@
   "scripts": {
     "build": "rs lib && node build-helpers/sync-client-assets.mjs",
     "check": "rs check",
-    "typecheck": "tsc --noEmit",
     "format": "rs fmt",
     "lint": "rs lint",
     "lint:fix": "rs lint --fix",
     "test": "rs test",
     "test:coverage": "rs test --coverage",
     "test:e2e": "playwright test",
-    "test:watch": "rs test --watch"
+    "test:watch": "rs test --watch",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
     "@actions/artifact": "^2.3.2",
